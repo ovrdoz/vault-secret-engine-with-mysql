@@ -2,29 +2,29 @@
 
 This repository contains the materials for my sample of Secrets Engine with Vault.
 
-The example is intended to demonstrate how a secret engine works dynamically with mysql.
-What will be presented is the step-by-step installation and configuration of vault and Mysql and finally the example of how to get a dynamic credential for database connection.
+The example is intended to demonstrate how a secret engine works dynamically with MySQL.
+What will be presented is the step-by-step installation and configuration of vault and Mysql and finally the example of how to get a dynamic credential for the database connection.
 
 
 ## Getting Started
 
-First, we need to configure run the provisioning of operation system, in this case dependencies for ubuntu 18.04:
+First, we need to configure run the provisioning of operation system, in this case, dependencies for ubuntu 18.04:
 
 ```
 ./00-provisioning.sh
 ```
 
-This server is not designed to be a "best-practices" Vault server and is mostly designed for demonstrations such as this. It is not production ready. Please do
+This server is not designed to be a "best-practices" Vault server and is mostly designed for demonstrations such as this. It is not production-ready. Please do
 not use this Vault setup in production.
 
 
-First, we need to configure run the provisioning of operation system, in this case dependencies for ubuntu 18.04:
+First, we need to configure run the provisioning of operation system, in this case, dependencies for ubuntu 18.04:
 
 ```
 ./01-install-vault.sh
 ```
 
-After running this scriopt your vault is already installed and operating, but you need to do root-token generation, so you should go to http://<your-host>:8200, follow the steps, generate keys with values for shares (5) and threshold (3). So you will get a result as below and finally copy the root_token that will be requested in the next step.
+After running this script your vault is already installed and operating, but you need to do root-token generation, so you should go to http://<your-host>:8200, follow the steps, generate keys with values for shares (5) and threshold (3). So you will get a result as below and finally copy the root_token that will be requested in the next step.
 
 ```
   "keys": [
@@ -45,7 +45,7 @@ After running this scriopt your vault is already installed and operating, but yo
 }
 ```
 
-Run this step to join mysql and vault and configure dependencies.
+Run this step to join MySQL and vault and configure dependencies.
 
 ```
 ./02-configure.sh
@@ -53,7 +53,7 @@ Run this step to join mysql and vault and configure dependencies.
 
 ## Running test
 
-In terminal run this comand to generate dynamic password
+In the terminal run this command to generate a dynamic password
 
 ```
 export VAULT_ADDR='http://0.0.0.0:8200' # this is a selector
@@ -62,9 +62,8 @@ export VAULT_TOKEN=<your-token>
 vault read database/creds/my-role
 ```
 
-For effective testing, perform a test connection to mysql with the dynamic user and pass
+For effective testing, perform a test connection to MySQL with the dynamic user and pass
 
 ```
 mysql -u <dynamic-user> -p 
 ```
-
