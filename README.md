@@ -61,6 +61,13 @@ export VAULT_TOKEN=<your-token>
 
 vault read database/creds/my-role
 ```
+or
+```
+curl \
+    --header "X-Vault-Token: <your-token>" \
+    --request GET \
+    http://127.0.0.1:8200/v1/database/creds/my-role
+```
 
 For effective testing, perform a test connection to MySQL with the dynamic user and pass
 
