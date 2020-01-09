@@ -21,7 +21,7 @@ sudo chown -R vault:vault /etc/vault /var/lib/vault/
 
 echo "--> Create a Vault service file"
 sudo cp ./files/vault.service /etc/systemd/system/vault.service
-suco chmod +x /etc/systemd/system/vault.service
+sudo chmod +x /etc/systemd/system/vault.service
 
 echo "--> Add basic configuration settings for Vault to /etc/vault/config.hcl file"
 sudo cp ./files/config.hcl /etc/vault/config.hcl

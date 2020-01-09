@@ -18,13 +18,19 @@ flush privileges;"
 # configure vault
 echo "--> Exporting variables from env vault"
 export VAULT_ADDR='http://0.0.0.0:8200'
-echo -n "Input your VAULT_TOKEN: "
-read answer
-export VAULT_TOKEN=${answer}
+vault operator init -recovery-shares=1 -recovery-threshold=1 | tee access.txt
+
+IFS=$'\n'
+cat access.txt | grep "Unseal Key" | awk '{ print $4 }' | while read key
+do
+    vault operator unseal $key
+done
+export VAULT_TOKEN=$(cat access.txt | grep "Initial Root Token: " | awk '{print $4}')
+vault login $VAULT_TOKEN
 
 # configure vault to access mysql 
 echo "--> Enable mysql secret engine to vault"
-vault secrets enable database
+vault secrets enable database 
 
 echo "--> Configure Vault to know how to connect to the MySQL"
 vault write database/config/my-mysql-database \
@@ -80,4 +86,4 @@ vault write identity/entity-alias name="maria_m" \
 
 echo "--> Test process of createndital build"
 echo "--> vault read database/creds/mysql-role"
-vault read database/creds/my-role
+vault read database/creds/mysql-role
