@@ -36,8 +36,8 @@ echo "--> For example, lets create a \"readonly\" role"
 vault write database/roles/my-role \
     db_name=my-mysql-database \
     creation_statements="CREATE USER '{{name}}'@'%' IDENTIFIED BY '{{password}}';GRANT SELECT ON *.* TO '{{name}}'@'%';" \
-    default_ttl="10m" \
-    max_ttl="1h"
+    default_ttl="1m" \
+    max_ttl="10m"
 
 echo "--> To generate a new set of credentials, we simply read from that role"
 echo "--> vault read database/creds/my-role"

@@ -83,3 +83,4 @@ sudo systemctl start vault
 sudo systemctl status vault
 
 echo "--> Done!"
+echo "--> Important! In this example, you need to go to http://<your-host>:8200 and generate key-root, key-shares key-threshold, because this will be needed in the next steps."
