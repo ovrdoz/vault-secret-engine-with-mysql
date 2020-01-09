@@ -52,7 +52,7 @@ vault write auth/userpass/users/diego_m password="diego_m" policies="mysql-polic
 vault write auth/userpass/users/maria_m password="maria_m" policies="default"
 
 echo "--> Cat the accessor"
-vault auth list -format=json | jq -r '.["userpass/"].accessor' > accessor.txt
+vault auth list -format=json | ./lib/jq -r '.["userpass/"].accessor' > accessor.txt
 
 echo "--> Create entry name and alias"
 # first user
@@ -60,7 +60,7 @@ vault write -format=json identity/entity name="Diego Maia" \
      policies="mysql-policy" \
      metadata=organization="Hashicorp" \
      metadata=team="Administrator" \
-     | jq -r ".data.id" > entity_id.txt
+     | ./lib/jq -r ".data.id" > entity_id.txt
 
 vault write identity/entity-alias name="diego_m" \
      canonical_id=$(cat entity_id.txt) \
@@ -71,7 +71,7 @@ vault write -format=json identity/entity name="Maria Maia" \
      policies="default" \
      metadata=organization="Hashicorp" \
      metadata=team="Default" \
-     | jq -r ".data.id" > entity_id.txt
+     | ./lib/jq -r ".data.id" > entity_id.txt
 
 
 vault write identity/entity-alias name="maria_m" \

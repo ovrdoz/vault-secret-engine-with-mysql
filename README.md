@@ -74,5 +74,25 @@ For effective testing, perform a test connection to MySQL with the dynamic user 
 ```
 mysql -u <dynamic-user> -p 
 ```
+# create entry
+curl -X POST http://127.0.0.1:8200/v1/identity/entity -H 'X-Vault-Token: s.i3BPFOUoylkTirXsvf5FbEB8' -d '{"name":"teste1","disabled":false,"policies":["default"]}'
+
+# Create base policy
+curl -X PUT http://127.0.0.1:8200/v1/sys/policies/acl/mysql-policy -H "X-Vault-Token: s.i3BPFOUoylkTirXsvf5FbEB8"  -d '{ "policy": "path \"database/creds/my-role\" {\n capabilities = [\"create\", \"read\"]\n}" }'
+
+
+=========================================
+090457ad-955f-5967-fa5e-7b7fdeff4ad3
+curl -X POST http://192.168.64.18:8200/v1/identity/entity-alias  -H 'X-Vault-Token: s.i3BPFOUoylkTirXsvf5FbEB8' -d '{"name":"teste_1","canonical_id":"090457ad-955f-5967-fa5e-7b7fdeff4ad3","type":"userpass"}' 
+
+vault write auth/userpass/users/diego_m password=diego_m
+vault write auth/userpass/users/maria_m password=maria_m
+vault write auth/userpass/users/joao_m password=joao_m
+
+curl -X POST -s http://127.0.0.1:8200/v1/auth/userpass/login/diego_m -d '{"password": "diego_m"}' | python -m json.tool    
+curl -X GET  -s http://127.0.0.1:8200/v1/database/creds/my-role -H "X-Vault-Token: s.x3sAcv9jtRmU5KQA23YboKpI" | python -m json.tool
+
+curl -X POST -s http://127.0.0.1:8200/v1/auth/userpass/login/maria_m -d '{"password": "maria_m"}' | python -m json.tool    
+curl -X GET  -s http://127.0.0.1:8200/v1/database/creds/my-role -H "X-Vault-Token: s.Agz8Vu4mTC8RVdybyfuujQwT" | python -m json.tool
 
 
