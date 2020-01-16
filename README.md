@@ -1,6 +1,6 @@
 # Vault secret engine with Mysql
 
-This repository contains the materials for my sample of Secrets Engine with Vault.
+This repository contains the materials for my sample of Secrets Engine with Vault and this project was tested with <code>multipass</code> whith ubuntu 18.04 image, project details here https://multipass.run/.
 
 The example is intended to demonstrate how a secret engine works dynamically with MySQL.
 What will be presented is the step-by-step installation and configuration of vault and Mysql and finally the example of how to get a dynamic credential for the database connection.
